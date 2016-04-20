@@ -1,0 +1,136 @@
+/**
+ * @author Jack Veromeev
+ */
+#pane {
+  -fx-alignment: center;
+  -fx-padding: 20.0px;
+  -fx-background-color: rgb(251.0, 248.0, 241.0);
+}
+
+.label {
+  -fx-font-family: 'sans-serif';
+  -fx-font-size: 17.0px; 
+  -fx-text-alignment: 5.0;
+  -fx-text-alignment: center;
+  -fx-alignment: center;
+}
+.button {
+  -fx-alignment: center;
+  -fx-border-color: black;
+  -fx-border-width: 1.0px;
+}
+.hbox, .vbox {
+  -fx-spacing: 20.0px;
+}
+
+#title-label {
+  -fx-font-size: 60px;
+  -fx-text-fill: #776e65;
+  -fx-pref-height: 100.0px
+}
+#setings-label {
+  -fx-font-size: 20.0px;
+  -fx-alignment: left;
+}
+
+#c16 {
+  -fx-font-size: 25.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #f59563;
+/*  -fx-effect: dropshadow( three-pass-box, rgba(245, 149, 99, 0.1),
+  30.0, 0.5, 0.0, 0.0); */
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+  -fx-alignment: center;
+}
+#c256 {
+  -fx-font-size: 25.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #edcc61;
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+ /* -fx-effect: dropshadow( three-pass-box, rgba(237, 204, 97, 0.1),
+  30.0, 0.5, 0.0, 0.0);*/
+  -fx-border-width: 1.0;
+  -fx-alignment: center;
+}
+#c1024 {
+  -fx-font-size: 25.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #edc53f; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+/*  -fx-effect: dropshadow( three-pass-box, rgba(243.0, 215.0, 116.0, 0.1),
+  30.0, 0.5, 0.0, 0.0);*/
+  -fx-border-width: 1.0;
+  -fx-alignment: center;
+}
+#c4096 {
+  -fx-font-size: 25.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #b885ac; 
+  -fx-background-radius: 3.0;
+  -fx-effect: dropshadow( three-pass-box, rgba(128.0, 0.0, 116.0, 0.1),
+  30.0, 0.5, 0.0, 0.0);
+  -fx-border-radius: 3.0;
+  -fx-alignment: center;
+}
+
+.combo-box {
+  -fx-background-color: rgb(221.0, 218.0, 211.0);
+  -fx-border-color: black;
+  -fx-border-width: 1.0px;
+  -fx-border-radius: 2.0;
+  -fx-font-size: 15;
+}
+.combo-box-popup .list-view .list-cell {
+  -fx-background-color: rgb(231.0, 228.0, 221.0);
+  -fx-border-color: black;
+  -fx-border-width: 0.5px;
+}
+.combo-box-popup .list-view .list-cell:filled:hover {
+  -fx-text-fill: -fx-text-inner-color;
+  -fx-background-color: rgb(241.0, 238.0, 231.0);
+}
+.combo-box-popup .list-view .list-cell:filled:selected,
+.combo-box-popup .list-view .list-cell:filled:selected:hover {
+  -fx-background-color: rgb(201.0, 198.0, 191.0);
+  -fx-text-fill: -fx-selection-bar-text;
+}
+
+.radio-button {
+  -fx-font-family: 'sans-serif';
+  -fx-font-size: 20.0px;
+}
+.radio-button .radio {
+  -fx-border-width: 1px;
+  -fx-border-color: #000;
+  -fx-background-color: white;
+  -fx-border-radius: 15px;
+  -fx-padding: 4px;
+}
+.radio-button .radio:selected {
+  -fx-background-color: white;
+  -fx-background-image: null;
+}
+.radio-button -radio:armed {
+  -fx-background-color: white;
+  -fx-background-image: null;
+}
+.radio-button -radio:determinate {
+  -fx-background-color: white;
+  -fx-background-image: null;
+}
+.radio-button -radio:indeterminate {
+  -fx-background-color: white;
+  -fx-background-image: null;
+}
+.radio-button .dot {
+  -fx-background-radius: 12px;
+  -fx-padding: 4px;
+}
+
+.check-box {
+  -fx-font-family: 'sans-serif';
+  -fx-font-size: 20;
+}
