@@ -15,9 +15,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import notation.FileHandler;
-import notation.GameHistory;
-import notation.GameStep;
+import notation.*;
 
 /**
  * Class that draws game board, controls player and bot actions and calls needed
@@ -26,7 +24,7 @@ import notation.GameStep;
  * @author Jack Veromeev
  */
 
-class GameBoard {
+public class GameBoard {
   /**
    * Object with information of field in game Initialized for each game
    */
@@ -48,21 +46,128 @@ class GameBoard {
    */
   private boolean notOver;
   /**
-   * Thread for control bot actions
+   * Thread to control bot actions
    */
   private AnimationTimer botTimer;
+  /**
+   * Thread to control replay rendering 
+   */
+  private AnimationTimer replayTimer;
+  /**
+   * Random generator
+   */
+  Random random;
+  /**
+   * Player key controller 
+   */
+  EventHandler<KeyEvent> playerEventHandler;
   /**
    * Variable to store game history. Used in method replay
    */
   GameHistory history;
+  /**
+   * Thread to execute parallel loading of the game while
+   * showing replay
+   */
+  GameFileLoader loader;
 
   /**
    * Main constructor
-   * 
-   * @param information
-   *          - data for game field
    */
   public GameBoard() {
+    random = new Random();
+    botTimer = new AnimationTimer() {
+      @Override
+      public void handle(long now) {
+        GameInfo.Direction currentDirection;
+        switch (random.nextInt(4)) {
+        case 0:
+          currentDirection = GameInfo.Direction.LEFT;
+          break;
+        case 1:
+          currentDirection = GameInfo.Direction.UP;
+          break;
+        case 2:
+          currentDirection = GameInfo.Direction.RIGHT;
+          break;
+        case 3:
+          currentDirection = GameInfo.Direction.DOWN;
+          break;
+        default:
+          currentDirection = GameInfo.Direction.LEFT;
+          break;
+        }
+        notOver = currentInfo.moveToThe(currentDirection);
+        repaint();
+        history.add(new GameStep(currentInfo));
+        if (notOver == false) {
+          botTimer.stop();
+          gameOver(false);
+        }
+        try {
+          TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException e) {
+          System.err.println("The sleep of a bot was interrupted");
+          e.printStackTrace();
+        }
+      }
+    };
+    playerEventHandler = new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        switch (event.getCharacter()) {
+        case "w":
+          notOver = currentInfo.moveToThe(GameInfo.Direction.UP);
+          repaint();
+          break;
+        case "s":
+          notOver = currentInfo.moveToThe(GameInfo.Direction.DOWN);
+          repaint();
+          break;
+        case "a":
+          notOver = currentInfo.moveToThe(GameInfo.Direction.LEFT);
+          repaint();
+          break;
+        case "d":
+          notOver = currentInfo.moveToThe(GameInfo.Direction.RIGHT);
+          repaint();
+          break;
+        case "q":
+          FileHandler.saveGame(history);
+          Game.menu.mainMenu();
+          break;
+        default:
+          break;
+        }
+        history.add(new GameStep(currentInfo));
+        if (notOver == false) {
+          gameScene.setOnKeyTyped(null);
+          gameOver(false);
+        }
+      }
+    };
+    replayTimer = new AnimationTimer() {
+      @SuppressWarnings("deprecation")
+      @Override
+      public void handle(long now) {
+	if(history.moves > history.currentStep) {
+	  notOver = currentInfo.changeToStatement(history.getNextStep());
+	  repaint();
+	}
+
+        if (notOver == false) {
+          replayTimer.stop();
+          loader.thread.stop();
+          gameOver(true);
+        }
+        try {
+          TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException e) {
+          System.err.println("The sleep of a replay bot was interrupted");
+          e.printStackTrace();
+        }
+      }
+    };
     table = new GridPane();
     table.setId("pane");
     root = new StackPane();
@@ -99,125 +204,41 @@ class GameBoard {
 
   /**
    * Method to start replay
-   * 
    * @param inFile
    *          file to read replay data
    */
   void replay(File inFile) {
-    currentInfo = new GameInfo();
+    if (currentInfo == null) {
+      currentInfo = new GameInfo();
+    }
+    notOver = true;
     root.getChildren().clear();
     root.getChildren().add(table);
     Game.stage.setScene(gameScene);
-    history = FileHandler.loadGame(inFile);
-    botTimer = new AnimationTimer() {
-      @Override
-      public void handle(long now) {
-        notOver = currentInfo.changeToStatement(history.getNextStep());
-        repaint();
-        if (notOver == false) {
-          botTimer.stop();
-          gameOver(true);
-        }
-        try {
-          TimeUnit.MILLISECONDS.sleep(100);
-        } catch (InterruptedException e) {
-          System.out.println("The sleep of a bot was interrupted");
-          e.printStackTrace();
-        }
-      }
-    };
-    // repaint();
+    history = new GameHistory();
+    loader = new GameFileLoader(inFile, history);
+    loader.thread.start();
     Game.stage.show();
-    botTimer.start();
+    replayTimer.start();
   }
 
   /**
    * Method for play game as a player
    */
   private void playPlayer() {
-    gameScene.setOnKeyTyped(new EventHandler<KeyEvent>() {
-      @Override
-      public void handle(KeyEvent event) {
-        switch (event.getCharacter()) {
-        case "w":
-          notOver = currentInfo.moveToThe(GameInfo.Direction.UP);
-          repaint();
-          break;
-        case "s":
-          notOver = currentInfo.moveToThe(GameInfo.Direction.DOWN);
-          repaint();
-          break;
-        case "a":
-          notOver = currentInfo.moveToThe(GameInfo.Direction.LEFT);
-          repaint();
-          break;
-        case "d":
-          notOver = currentInfo.moveToThe(GameInfo.Direction.RIGHT);
-          repaint();
-          break;
-        case "q":
-          FileHandler.saveGame(history);
-          Game.menu.mainMenu();
-          break;
-        default:
-          System.out.println(event.getCharacter());
-          break;
-        }
-        history.add(new GameStep(currentInfo));
-        if (notOver == false) {
-          gameScene.setOnKeyTyped(null);
-          gameOver(false);
-        }
-      }
-    });
+    gameScene.setOnKeyTyped(playerEventHandler);
   }
 
   /**
    * Method for play game as a computer
    */
   private void playBot() {
-    Random rand = new Random();
-    botTimer = new AnimationTimer() {
-      @Override
-      public void handle(long now) {
-        GameInfo.Direction currentDirection;
-        switch (rand.nextInt(4)) {
-        case 0:
-          currentDirection = GameInfo.Direction.LEFT;
-          break;
-        case 1:
-          currentDirection = GameInfo.Direction.UP;
-          break;
-        case 2:
-          currentDirection = GameInfo.Direction.RIGHT;
-          break;
-        case 3:
-          currentDirection = GameInfo.Direction.DOWN;
-          break;
-        default:
-          currentDirection = GameInfo.Direction.LEFT;
-          break;
-        }
-        notOver = currentInfo.moveToThe(currentDirection);
-        repaint();
-        history.add(new GameStep(currentInfo));
-        if (notOver == false) {
-          botTimer.stop();
-          gameOver(false);
-        }
-        try {
-          TimeUnit.MILLISECONDS.sleep(100);
-        } catch (InterruptedException e) {
-          System.out.println("The sleep of a bot was interrupted");
-          e.printStackTrace();
-        }
-      }
-    };
     botTimer.start();
   }
 
   /**
    * Method to change window appearance after changes in field data
+   * according to data and size of field stored in currentInfo:Gamenfo
    */
   private void repaint() {
     table.getChildren().clear();
@@ -239,6 +260,8 @@ class GameBoard {
 
   /**
    * Method to show "game over" menu
+   * Saves game story if game is played(not replay)
+   * Button with exit to main menu
    */
   private void gameOver(boolean replay) {
     Label l = new Label("Game Over. Score: " +

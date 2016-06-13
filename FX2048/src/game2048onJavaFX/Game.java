@@ -1,12 +1,12 @@
 package game2048onJavaFX;
 
+import generator.GeneratorBoard;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import notation.FileHandler;
-
 /**
  * Main class with entry point to application
  * 
@@ -16,20 +16,20 @@ public class Game extends Application {
   /**
    * Horizontal window size
    */
-  static final int WINDOW_SIZE_X = 400;
+  public static final int WINDOW_SIZE_X = 400;
   /**
    * Vertical window size
    */
-  static final int WINDOW_SIZE_Y = 500;
+  public static final int WINDOW_SIZE_Y = 500;
 
   /**
    * Main game window
    */
-  static Stage stage;
+  public static Stage stage;
   /**
    * Game menu
    */
-  static Menu menu;
+  public static Menu menu;
   /**
    * Game settings
    */
@@ -37,7 +37,11 @@ public class Game extends Application {
   /**
    * Game board
    */
-  static GameBoard board;
+  public static GameBoard board;
+  /**
+   * generator of new savegames
+   */
+  public static GeneratorBoard generator;
 
   @Override
   public void start(Stage primaryStage) {
@@ -45,15 +49,16 @@ public class Game extends Application {
     stage.setTitle("2048FX");
     stage.getIcons().add(new Image("file:resources/images/icon.png"));
     stage.setResizable(false);
-    settings = FileHandler.loadSettings();
-    menu = new Menu();
+    generator = new GeneratorBoard();
     board = new GameBoard();
+    settings = FileHandler.loadSettings();
     stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
       @Override
       public void handle(WindowEvent event) {
         FileHandler.saveSettings(Game.settings);
       }
     });
+    menu = new Menu();
   }
 
   /**

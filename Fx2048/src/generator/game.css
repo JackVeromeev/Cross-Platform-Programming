@@ -1,0 +1,194 @@
+/**
+ * @author Jack Veromeev
+ */
+#pane {
+  -fx-alignment: center, center;
+  -fx-padding: 10.0;
+  -fx-background-color: rgb(251.0, 248.0, 241.0);
+}
+
+.label {
+  -fx-font-family: 'sans-serif';
+  -fx-font-size: 25.0px; 
+  -fx-text-alignment: center;
+  -fx-border-color: black;
+  -fx-pref-height: 70.0px;
+  -fx-pref-width: 400.0px;
+  -fx-alignment: center;
+}
+
+#c1 {
+  -fx-text-fill: #776e65;
+  -fx-background-color: rgb(251.0, 248.0, 241.0); 
+  -fx-background-radius: 3.0;
+  -fx-border-width: 0;
+  -fx-pref-width: 210;
+  -fx-font-size: 20;
+}
+#exit-pane {
+  -fx-background-color: rgba(251.0, 248.0, 241.0, 0.8); 
+  -fx-border-width: 0;
+  -fx-pref-width: 300;
+  -fx-pref-height: 300;
+}
+#exit-label {
+  -fx-text-fill: #776e65;
+  -fx-background-color: rgba(251.0, 248.0, 241.0, 0.0); 
+  -fx-background-radius: 10.0;
+  -fx-border-width: 0;
+  -fx-border-radius: 10;
+  -fx-pref-width: 300;
+  -fx-font-size: 20;
+}
+#exit-button {
+  -fx-text-fill: #776e65;
+  -fx-background-color: rgba(251.0, 248.0, 241.0, 0.0); 
+  -fx-background-radius: 10.0;
+  -fx-border-width: 2;
+  -fx-border-color: darkcyan ;
+  -fx-border-radius: 10;
+  -fx-pref-width: 200;
+  -fx-font-size: 20;
+}
+#c0 {
+  -fx-text-fill: #776e65;
+  -fx-background-color: rgb(251.0, 248.0, 241.0); 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+
+#c2 {
+  -fx-font-size: 40.0px;
+  -fx-text-fill: #776e65;
+  -fx-background-color: #eee4da; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+
+#c4 {
+  -fx-font-size: 40.0px;
+  -fx-text-fill: #776e65;
+  -fx-background-color: #ede0c8; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+
+#c8 {
+  -fx-font-size: 40.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #f2b179; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+
+#c16 {
+  -fx-font-size: 40.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #f59563; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+
+#c32 {
+  -fx-font-size: 40.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #f67c5f; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+
+#c64 {
+  -fx-font-size: 40.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #f65e3b; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+
+#c128 {
+  -fx-font-size: 30.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #edcf72; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+  -fx-effect: dropshadow( three-pass-box, rgba(243.0, 215.0, 116.0, 0.2381), 30.0, 0.5, 0.0, 0.0 );
+  -fx-border-width: 1.0;
+}
+
+#c256 {
+  -fx-font-size: 30.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #edcc61;
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+  -fx-effect: dropshadow( three-pass-box, rgba(243.0, 215.0, 116.0, 0.31746), 30.0, 0.5, 0.0, 0.0 );
+  -fx-border-width: 1.0;
+}
+
+#c512  {
+  -fx-font-size: 30.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #edc850; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+  -fx-effect: dropshadow( three-pass-box, rgba(243.0, 215.0, 116.0, 0.39683), 30.0, 0.5, 0.0, 0.0 );
+  -fx-border-width: 1.0;
+}
+
+#c1024 {
+  -fx-font-size: 25.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #edc53f; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+  -fx-effect: dropshadow( three-pass-box, rgba(243.0, 215.0, 116.0, 0.47619), 30.0, 0.5, 0.0, 0.0 );
+  -fx-border-width: 1.0;
+}
+
+#c2048 {
+  -fx-font-size: 25.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #edc22e; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+  -fx-effect: dropshadow( three-pass-box, rgba(243.0, 215.0, 116.0, 0.55556), 30.0, 0.5, 0.0, 0.0 );
+  -fx-border-width: 1.0;
+}
+
+#c4096 {
+  -fx-font-size: 25.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #b885ac; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+
+#c8192 {
+  -fx-font-size: 25.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #af6da9; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+#c16384 { 
+  -fx-font-size: 20.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #ab61a7; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+#c32768 {
+  -fx-font-size: 20.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #a755a6; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}
+
+#c65536, #c131072, #c262144 {
+  -fx-font-size: 15.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #3c3a32; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
+}

@@ -7,10 +7,10 @@ import game2048onJavaFX.Game;
 public class GameHistory {
   int rawNumber;
   int columnNumber;
-  int moves;
+  public int moves;
   int score;
   ArrayList<GameStep> history;
-  int currentStep = 0;
+  public int currentStep = 0;
 
   public GameHistory() {
     rawNumber = Game.settings.rawNumber;
@@ -20,7 +20,14 @@ public class GameHistory {
   }
 
   public GameStep getNextStep() {
-    currentStep++;
+    if(currentStep < moves) {
+      currentStep++;
+    }
+    /*
+     * This if is needed in case if game loader late at loading next step
+     * while replay bot wants to show it. In that case bot just passes
+     * one iteration in replay
+     */
     return history.get(currentStep - 1);
   }
 

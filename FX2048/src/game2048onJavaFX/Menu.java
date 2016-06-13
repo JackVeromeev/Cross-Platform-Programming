@@ -22,7 +22,7 @@ import notation.FileHandler;
  * 
  * @author Jack Veromeev
  */
-class Menu {
+public class Menu {
 
   /**
    * Distance between buttons in pixels
@@ -98,6 +98,16 @@ class Menu {
       }
     });
     root.getChildren().add(bSettings);
+
+    Button bGenerate = new Button("Generate 5");
+    bGenerate.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        Game.generator.init(5);
+      }
+    });
+    bGenerate.setId("c16");
+    root.getChildren().add(bGenerate);
 
     Button bQuit = new Button("Quit");
     bQuit.setId("c1024");

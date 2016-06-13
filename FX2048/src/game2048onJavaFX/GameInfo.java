@@ -40,7 +40,7 @@ public class GameInfo {
    * @author Jack Veromeev
    *
    */
-  enum Direction {
+  public enum Direction {
     LEFT, RIGHT, UP, DOWN
   };
 
@@ -60,7 +60,7 @@ public class GameInfo {
     }
   }
 
-  GameInfo() {
+  public GameInfo() {
     columnNumber = Game.settings.columnNumber;
     rawNumber = Game.settings.rawNumber;
     if (Game.settings.currentDifficulty == Settings.Difficulty.EASY) {
@@ -338,6 +338,7 @@ public class GameInfo {
    * @param newInfo
    *          information of the step of game
    * @return true if game is NOT over, otherwise false
+   * @throws Exception 
    */
   boolean changeToStatement(GameStep newInfo) {
     rawNumber = newInfo.field.length;

@@ -70,8 +70,8 @@
   -fx-text-fill: #f9f6f2;
   -fx-background-color: #b885ac; 
   -fx-background-radius: 3.0;
-  -fx-effect: dropshadow( three-pass-box, rgba(128.0, 0.0, 116.0, 0.1),
-  30.0, 0.5, 0.0, 0.0);
+/*  -fx-effect: dropshadow( three-pass-box, rgba(128.0, 0.0, 116.0, 0.1),
+  30.0, 0.5, 0.0, 0.0);*/
   -fx-border-radius: 3.0;
   -fx-alignment: center;
 }

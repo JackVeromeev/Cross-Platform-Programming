@@ -21,11 +21,14 @@ public class FileHandler {
   /**
    * Settings file name
    */
-  final static String settingsFileName = "Settings.cfg";
+  final static String SETTINGS_FILE_NAME = "Settings.cfg";
+  final static String SAVE_GAMES_FOLDER = "./savegames";
+  final static String SAVE_GAME_FILE_NAME = "save";
+  final static String SAVE_GAME_FILE_EXTENSION = ".saving";
 
   public static Settings loadSettings() {
     Settings result = new Settings();
-    File settingsFile = new File(settingsFileName);
+    File settingsFile = new File(SETTINGS_FILE_NAME);
     String[] params;
     if (settingsFile.exists()) {
       try {
@@ -76,7 +79,7 @@ public class FileHandler {
     /*
      * And save them
      */
-    File outFile = new File(settingsFileName);
+    File outFile = new File(SETTINGS_FILE_NAME);
     try {
       if (!outFile.exists()) {
         outFile.createNewFile();
@@ -95,13 +98,17 @@ public class FileHandler {
 
   public static void saveGame(GameHistory his) {
     try {
-      File savesFolder = new File("./savegames");
-      savesFolder.mkdir();
-      File outFile = new File("savegames/save" + Integer.toString(Game.settings.autosaveNumber) + ".saving");
+      File savesFolder = new File(SAVE_GAMES_FOLDER);
+      if(!savesFolder.exists()) {
+	savesFolder.mkdir();
+      }
+      File outFile = new File(SAVE_GAMES_FOLDER + "/" + SAVE_GAME_FILE_NAME +
+	  Game.settings.autosaveNumber + SAVE_GAME_FILE_EXTENSION);
       outFile.createNewFile();
       PrintWriter out = new PrintWriter(outFile.getAbsoluteFile());
       try {
-        out.println(Game.settings.rawNumber + " " + Game.settings.columnNumber + " " + his.moves + " " + his.score);
+        out.println(Game.settings.rawNumber + " " +
+            Game.settings.columnNumber + " " + his.moves + " " + his.score);
         for (GameStep step : his.history) {
           out.println(step.toString());
         }
@@ -115,27 +122,28 @@ public class FileHandler {
     Game.settings.autosaveNumber++;
   }
 
-  public static GameHistory loadGame(File inFile) {
-    GameHistory history = new GameHistory();
-    if (inFile.exists()) {
-      try {
-        BufferedReader in = new BufferedReader(new FileReader(inFile.getAbsoluteFile()));
-        try {
-          String[] initialParams = in.readLine().split(" ");
-          history.rawNumber = Integer.parseInt(initialParams[0]);
-          history.columnNumber = Integer.parseInt(initialParams[1]);
-          for (int i = 0; i < Integer.parseInt(initialParams[2]); i++) {
-            history.add(GameStep.createFromString(in.readLine(),
-                history.rawNumber, history.columnNumber));
-          }
-        } finally {
-          in.close();
-        }
-      } catch (Exception e) {
-        System.err.println(e.getMessage());
-        e.printStackTrace();
-      }
-    }
-    return history;
-  }
+//  public static GameHistory loadGame(File inFile) {
+//    GameHistory targetHistory = new GameHistory();
+//    if (inFile.exists()) {
+//      try {
+//        BufferedReader in =
+//            new BufferedReader(new FileReader(inFile.getAbsoluteFile()));
+//        try {
+//          String[] initialParams = in.readLine().split(" ");
+//          targetHistory.rawNumber = Integer.parseInt(initialParams[0]);
+//          targetHistory.columnNumber = Integer.parseInt(initialParams[1]);
+//          for (int i = 0; i < Integer.parseInt(initialParams[2]); i++) {
+//            targetHistory.add(GameStep.createFromString(in.readLine(),
+//        	targetHistory.rawNumber, targetHistory.columnNumber));
+//          }
+//        } finally {
+//          in.close();
+//        }
+//      } catch (Exception e) {
+//        System.err.println(e.getMessage());
+//        e.printStackTrace();
+//      }
+//    }
+//    return targetHistory;
+//  }
 }
