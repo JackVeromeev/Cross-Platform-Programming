@@ -36,7 +36,7 @@
 #c16 {
   -fx-font-size: 25.0px;
   -fx-text-fill: #f9f6f2;
-  -fx-background-color: #f59563;
+  -fx-background-color: #f2b179;
 /*  -fx-effect: dropshadow( three-pass-box, rgba(245, 149, 99, 0.1),
   30.0, 0.5, 0.0, 0.0); */
   -fx-background-radius: 3.0;
@@ -46,7 +46,7 @@
 #c256 {
   -fx-font-size: 25.0px;
   -fx-text-fill: #f9f6f2;
-  -fx-background-color: #edcc61;
+  -fx-background-color: #f65e3b;
   -fx-background-radius: 3.0;
   -fx-border-radius: 3.0;
  /* -fx-effect: dropshadow( three-pass-box, rgba(237, 204, 97, 0.1),
@@ -74,6 +74,14 @@
   30.0, 0.5, 0.0, 0.0);*/
   -fx-border-radius: 3.0;
   -fx-alignment: center;
+}
+
+#c65536 {
+  -fx-font-size: 25.0px;
+  -fx-text-fill: #f9f6f2;
+  -fx-background-color: #3c3a32; 
+  -fx-background-radius: 3.0;
+  -fx-border-radius: 3.0;
 }
 
 .combo-box {

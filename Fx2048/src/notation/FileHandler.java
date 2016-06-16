@@ -21,10 +21,10 @@ public class FileHandler {
   /**
    * Settings file name
    */
-  final static String SETTINGS_FILE_NAME = "Settings.cfg";
-  final static String SAVE_GAMES_FOLDER = "./savegames";
-  final static String SAVE_GAME_FILE_NAME = "save";
-  final static String SAVE_GAME_FILE_EXTENSION = ".saving";
+  public final static String SETTINGS_FILE_NAME = "Settings.cfg";
+  public final static String SAVE_GAMES_FOLDER = "./savegames";
+  public final static String SAVE_GAME_FILE_NAME = "save";
+  public final static String SAVE_GAME_FILE_EXTENSION = ".saving";
 
   public static Settings loadSettings() {
     Settings result = new Settings();
@@ -122,28 +122,27 @@ public class FileHandler {
     Game.settings.autosaveNumber++;
   }
 
-//  public static GameHistory loadGame(File inFile) {
-//    GameHistory targetHistory = new GameHistory();
-//    if (inFile.exists()) {
-//      try {
-//        BufferedReader in =
-//            new BufferedReader(new FileReader(inFile.getAbsoluteFile()));
-//        try {
-//          String[] initialParams = in.readLine().split(" ");
-//          targetHistory.rawNumber = Integer.parseInt(initialParams[0]);
-//          targetHistory.columnNumber = Integer.parseInt(initialParams[1]);
-//          for (int i = 0; i < Integer.parseInt(initialParams[2]); i++) {
-//            targetHistory.add(GameStep.createFromString(in.readLine(),
-//        	targetHistory.rawNumber, targetHistory.columnNumber));
-//          }
-//        } finally {
-//          in.close();
-//        }
-//      } catch (Exception e) {
-//        System.err.println(e.getMessage());
-//        e.printStackTrace();
-//      }
-//    }
-//    return targetHistory;
-//  }
+  public static GameStatisticsData loadStat(String fileName) {
+    File inFile = new File(fileName);
+    GameStatisticsData data = new GameStatisticsData();
+    if (inFile.exists()) {
+      try {
+        BufferedReader in =
+            new BufferedReader(new FileReader(inFile.getAbsoluteFile()));
+        try {
+          String[] initialParams = in.readLine().split(" ");
+          data.rawNumber = Integer.parseInt(initialParams[0]);
+          data.columnNumber = Integer.parseInt(initialParams[1]);
+          data.moves = Integer.parseInt(initialParams[2]);
+          data.score = Integer.parseInt(initialParams[3]);
+        } finally {
+          in.close();
+        }
+      } catch (Exception e) {
+        System.err.println("oops "+fileName+"\n" + e.getMessage());
+        e.printStackTrace();
+      }
+    }
+    return data;
+  }
 }

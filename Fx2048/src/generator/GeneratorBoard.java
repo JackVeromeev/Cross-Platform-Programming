@@ -37,6 +37,7 @@ public class GeneratorBoard {
   private StackPane root;
   
   private boolean notOver;
+  private boolean enoughGamesGenerated;
   private AnimationTimer gameTimer;
   private AnimationTimer generatorTimer;
   private Random random;
@@ -69,7 +70,10 @@ public class GeneratorBoard {
           gameTimer.stop();
           FileHandler.saveGame(history);
           finishedThreads++;
-          generatorTimer.start();
+          if(!enoughGamesGenerated)  {
+            System.out.println("enough games");
+            generatorTimer.start();
+          }
         }
       }
     };
@@ -77,23 +81,27 @@ public class GeneratorBoard {
       @Override
       public void handle(long arg0) {
         if(finishedThreads == saveAmount) {
+          enoughGamesGenerated = true;
           gameTimer.stop();
           generatorTimer.stop();
           gameOver();
         }
         System.out.println(finishedThreads + "-fin  " );
-        if(generatedThreads == 0) {
+        if(generatedThreads == 0 && !enoughGamesGenerated) {
+          System.out.println("genered = 0 & not enough");
           createThread();
           repaint();
           generatorTimer.stop();
         }
-        if (generatedThreads == finishedThreads) {
-	  createThread();
+        if (generatedThreads == finishedThreads && !enoughGamesGenerated) {
+          System.out.println("genered = finished & not enough");
+          createThread();
 	  repaint();
 	  generatorTimer.stop();
 	}
       }
     };
+    enoughGamesGenerated = false;
     random = new Random();
     table = new GridPane();
     table.setId("pane");
@@ -146,6 +154,7 @@ public class GeneratorBoard {
   }
 
   private void gameOver() {
+    repaint();
     Game.settings.rawNumber = rawNumberToSave;
     Game.settings.columnNumber = columnNumberToSave;
     Label l = new Label(finishedThreads + "\ngames generated");

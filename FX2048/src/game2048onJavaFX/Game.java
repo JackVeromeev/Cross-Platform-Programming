@@ -42,6 +42,10 @@ public class Game extends Application {
    * generator of new savegames
    */
   public static GeneratorBoard generator;
+  /**
+   * statistics menu
+   */
+  public static StatisticsBoard statBoard;
 
   @Override
   public void start(Stage primaryStage) {
@@ -50,6 +54,7 @@ public class Game extends Application {
     stage.getIcons().add(new Image("file:resources/images/icon.png"));
     stage.setResizable(false);
     generator = new GeneratorBoard();
+    statBoard = new StatisticsBoard();
     board = new GameBoard();
     settings = FileHandler.loadSettings();
     stage.setOnCloseRequest(new EventHandler<WindowEvent>() {

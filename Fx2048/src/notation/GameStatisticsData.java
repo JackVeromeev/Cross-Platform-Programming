@@ -1,8 +1,9 @@
 package notation;
 
 public class GameStatisticsData {
-  int rawNumber;
-  int columnNumber;
-  int moves;
-  int score;
+  public int gameNumber;
+  public int rawNumber;
+  public int columnNumber;
+  public int moves;
+  public int score;
 }

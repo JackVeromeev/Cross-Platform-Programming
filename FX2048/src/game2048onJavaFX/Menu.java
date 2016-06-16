@@ -27,7 +27,7 @@ public class Menu {
   /**
    * Distance between buttons in pixels
    */
-  private final int BUTTON_DISTANCE = 25;
+  public final int BUTTON_DISTANCE = 25;
   /**
    * Scene for main menu
    */
@@ -99,18 +99,18 @@ public class Menu {
     });
     root.getChildren().add(bSettings);
 
-    Button bGenerate = new Button("Generate 5");
+    Button bGenerate = new Button("Also");
     bGenerate.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        Game.generator.init(5);
+	Game.statBoard.statMenu();
       }
     });
-    bGenerate.setId("c16");
+    bGenerate.setId("c1024");
     root.getChildren().add(bGenerate);
 
     Button bQuit = new Button("Quit");
-    bQuit.setId("c1024");
+    bQuit.setId("c65536");
     bQuit.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
